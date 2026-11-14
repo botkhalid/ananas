@@ -13,7 +13,7 @@ Never upload `.env` to GitHub. `.gitignore` excludes it.
 
 ## Required settings
 
-Enable **Server Members Intent** in the Discord Developer Portal.
+Enable **Server Members Intent** and **Message Content Intent** in the Discord Developer Portal.
 
 Bot permissions:
 - View Channels
@@ -34,3 +34,13 @@ The `/ارسال` command is restricted to server administrators. It posts the e
 Room emoji: `<:zz_dotheart:1515881349863440519>`
 
 Invite tracking may show `Unknown` when Discord does not expose a changed invite, such as vanity URLs or certain invite types.
+
+
+## Automatic Ananas image reply
+
+The bot replies with `assets/ananas-banner.png` only when a user sends a message whose entire trimmed content is exactly one of these values:
+
+- `1563381634072449054`
+- `1563380002681266246`
+
+Other messages are ignored by this feature. The bot needs View Channel and Send Messages permissions in the channel.

@@ -10,6 +10,7 @@ const {
 } = require("discord.js");
 
 const sendCommand = require("./commands/send");
+const handleAutoImageReply = require("./features/autoImageReply");
 
 const TOKEN = process.env.DISCORD_TOKEN;
 
@@ -27,6 +28,8 @@ const ROOM_EMOJI = "<:zz_dotheart:1569799693712625756>";
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildInvites
   ],
@@ -64,6 +67,14 @@ client.once("clientReady", async readyClient => {
 
   for (const guild of readyClient.guilds.cache.values()) {
     await cacheGuildInvites(guild);
+  }
+});
+
+client.on("messageCreate", async message => {
+  try {
+    await handleAutoImageReply(message);
+  } catch (error) {
+    console.error(`Could not send Ananas auto-reply image: ${error.message}`);
   }
 });
 

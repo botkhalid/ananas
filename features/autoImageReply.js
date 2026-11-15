@@ -1,10 +1,11 @@
 const path = require("node:path");
 const { AttachmentBuilder } = require("discord.js");
 
-// Only these Discord text channels trigger the fixed Ananas image.
+// أضف معرّفات الرومات التي ترد فيها صورة Ananas تلقائياً.
 const TRIGGER_CHANNELS = new Set([
   "1563381634072449054",
-  "1563380002681266246"
+  "1563380002681266246",
+  "1571228963429285938"
 ]);
 
 module.exports = async function handleAutoImageReply(message) {

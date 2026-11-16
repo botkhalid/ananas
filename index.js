@@ -10,6 +10,7 @@ const {
 } = require("discord.js");
 
 const sendCommand = require("./commands/send");
+const clearCommand = require("./commands/clear");
 const handleAutoImageReply = require("./features/autoImageReply");
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -58,9 +59,9 @@ client.once("clientReady", async readyClient => {
     const rest = new REST({ version: "10" }).setToken(TOKEN);
     await rest.put(
       Routes.applicationCommands(readyClient.user.id),
-      { body: [sendCommand.data.toJSON()] }
+      { body: [sendCommand.data.toJSON(), clearCommand.data.toJSON()] }
     );
-    console.log("Slash command /ارسال registered.");
+    console.log("Slash commands /ارسال and /مسح registered.");
   } catch (error) {
     console.error("Could not register slash commands:", error);
   }
@@ -83,6 +84,11 @@ client.on("interactionCreate", async interaction => {
 
   if (interaction.commandName === sendCommand.data.name) {
     await sendCommand.execute(interaction);
+    return;
+  }
+
+  if (interaction.commandName === clearCommand.data.name) {
+    await clearCommand.execute(interaction);
   }
 });
 

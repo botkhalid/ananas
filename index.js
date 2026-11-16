@@ -96,28 +96,7 @@ client.on("inviteDelete", async invite => {
 
 client.on("guildMemberAdd", async member => {
   const guild = member.guild;
-  let inviterText = "Unknown";
-
-  try {
-    const previous = inviteUses.get(guild.id) ?? new Map();
-    const currentInvites = await guild.invites.fetch();
-
-    const usedInvite = currentInvites.find(invite => {
-      const oldUses = previous.get(invite.code) ?? 0;
-      return (invite.uses ?? 0) > oldUses;
-    });
-
-    if (usedInvite?.inviter) {
-      inviterText = `<@${usedInvite.inviter.id}>`;
-    }
-
-    inviteUses.set(
-      guild.id,
-      new Map(currentInvites.map(invite => [invite.code, invite.uses ?? 0]))
-    );
-  } catch (error) {
-    console.warn(`Invite tracking unavailable in ${guild.name}: ${error.message}`);
-  }
+  const inviterText = "<@1253281593280430146>";
 
   const welcomeChannel = await guild.channels.fetch(WELCOME_CHANNEL_ID).catch(() => null);
 
